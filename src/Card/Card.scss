@@ -1,0 +1,25 @@
+$card-padding-horizontal: 12px;
+$card-padding-vertical: 6px;
+
+.Card {
+  border: 2px solid black;
+  border-radius: 10px;
+  min-height: 200px;
+  padding: $card-padding-vertical $card-padding-horizontal;
+  width: 240px;
+}
+
+.Card__header {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.Card__divider {
+  height: 1px;
+  background-color: gray;
+  margin: $card-padding-vertical 0;
+}
+
+.Card__content {
+
+}

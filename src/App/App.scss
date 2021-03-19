@@ -1,0 +1,24 @@
+@import '../global';
+
+.App__container {
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 800px;
+}
+
+.App__container-background {
+  background-color: rgba(0, 0, 0, .05);
+  min-height: calc(100vh - #{$header-height});
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+
+.App__content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.App__card {
+  margin-right: 20px;
+}
