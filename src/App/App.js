@@ -29,6 +29,7 @@ function App() {
       key={one.id}
       caption={one.caption}
       content={one.content}
+      checkbox={true}
     />
   );
 

@@ -10,8 +10,10 @@ $card-padding-vertical: 6px;
 }
 
 .Card__header {
+  display: flex;
   font-size: 1.1rem;
   font-weight: bold;
+  justify-content: space-between;
 }
 
 .Card__divider {
@@ -22,4 +24,16 @@ $card-padding-vertical: 6px;
 
 .Card__content {
 
+}
+
+
+.Card.Card__selected {
+  border-color: green;
+}
+.Card.Card__selected .Card__divider {
+  background-color: lightgreen;
+}
+
+.Card__clickable {
+  cursor: pointer;
 }
