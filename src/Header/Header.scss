@@ -1,0 +1,21 @@
+@import '../global';
+
+$header-background-color: #563d7c;
+
+.Header__header-wrapper {
+  background-color: adjust-color($header-background-color, $alpha: -0.05);
+  color: white;
+  height: $header-height;
+}
+
+.Header__container-background {
+  background-color: $header-background-color;
+  height: 100%;
+}
+
+.Header__content {
+  align-items: center;
+  display: flex;
+  font-size: 1.2rem;
+  height: 100%;
+}
