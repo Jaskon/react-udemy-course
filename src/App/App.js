@@ -6,7 +6,7 @@ import cl from 'classnames';
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum mauris justo, non egestas sapien malesuada sit amet.';
 
-const cards = [
+const beValues = [
   {
     id: '0',
     caption: 'Card one header',
@@ -20,16 +20,18 @@ const cards = [
     caption: 'Card three header',
     content: loremIpsum
   }
-].map(one =>
-  <Card
-    key={one}
-    caption={'Card header'}
-    content={loremIpsum}
-  />
-);
+];
 
 
 function App() {
+  const cards = beValues.map(one =>
+    <Card
+      key={one.id}
+      caption={one.caption}
+      content={one.content}
+    />
+  );
+
   return (
     <div>
       <Header containerStyleName={'App__container'}/>
