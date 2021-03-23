@@ -1,25 +1,25 @@
-import { useState } from 'react';
 import cl from 'classnames';
 import './Card.scss';
 
-function Card({ className, caption, content, checkbox, defaultSelected = false }) {
-  const [checkboxState, setCheckboxState] = useState(defaultSelected);
+function Card({ className, caption, content,
+                checkbox = false, selected = false,
+                onSelect = undefined }) {
 
   const onHeaderClick = () => {
-    setCheckboxState(!checkboxState);
+    return onSelect(!selected);
   };
 
   return (
     <div className={className}>
 
-      <div className={cl('Card', {'Card__selected': checkboxState})}>
+      <div className={cl('Card', {'Card__selected': selected})}>
         <div
           className={cl('Card__header', {'Card__clickable': checkbox})}
           onClick={checkbox ? onHeaderClick : undefined}
         >
           <div>{caption}</div>
           {checkbox &&
-            <input type={'checkbox'} className={'Card__clickable'} checked={checkboxState} readOnly/>
+            <input type={'checkbox'} className={'Card__clickable'} checked={selected} readOnly />
           }
         </div>
 
