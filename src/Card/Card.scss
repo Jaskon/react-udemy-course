@@ -10,10 +10,9 @@ $card-padding-vertical: 6px;
 }
 
 .Card__header {
-  display: flex;
   font-size: 1.1rem;
   font-weight: bold;
-  justify-content: space-between;
+  user-select: none;
 }
 
 .Card__divider {

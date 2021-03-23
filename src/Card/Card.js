@@ -6,7 +6,9 @@ function Card({ className, caption, content,
                 onSelect = undefined }) {
 
   const onHeaderClick = () => {
-    return onSelect(!selected);
+    if (onSelect !== undefined) {
+      return onSelect(!selected);
+    }
   };
 
   return (
@@ -15,12 +17,9 @@ function Card({ className, caption, content,
       <div className={cl('Card', {'Card__selected': selected})}>
         <div
           className={cl('Card__header', {'Card__clickable': checkbox})}
-          onClick={checkbox ? onHeaderClick : undefined}
+          onClick={onHeaderClick}
         >
           <div>{caption}</div>
-          {checkbox &&
-            <input type={'checkbox'} className={'Card__clickable'} checked={selected} readOnly />
-          }
         </div>
 
         <div className={'Card__divider'} />

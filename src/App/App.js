@@ -29,25 +29,27 @@ const beValues = [
   }
 ];
 
+const beValuesTransformed = {};
+beValues.forEach(one => beValuesTransformed[one.id] = one);
+
 
 function App() {
-  const [cardsState, setCardsState] = useState(beValues);
+  const [cardsState, setCardsState] = useState(beValuesTransformed);
 
-  const cardsRendered = cardsState.map((one, index) =>
+  const cardsRendered = Object.entries(cardsState).map(([key, one]) =>
     <Card
       key={one.id}
       caption={one.caption}
       content={one.content}
       checkbox={one.selectable}
       selected={one.selected}
-      onSelect={() => {
-        const newCardsState = [...cardsState];
-        newCardsState[index] = {
+      onSelect={() => setCardsState({
+        ...cardsState,
+        [key]: {
           ...one,
           selected: !one.selected
         }
-        setCardsState(newCardsState);
-      }}
+      })}
     />
   );
 
