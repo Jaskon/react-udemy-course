@@ -12,19 +12,16 @@ const beValues = [
     id: '0',
     caption: 'Card one header',
     content: loremIpsum,
-    selectable: true,
     selected: true
   }, {
     id: '1',
     caption: 'Card two header',
     content: loremIpsum,
-    selectable: true,
     selected: true
   }, {
     id: '2',
     caption: 'Card three header',
     content: loremIpsum,
-    selectable: true,
     selected: false
   }
 ];
@@ -41,7 +38,6 @@ function App() {
       key={one.id}
       caption={one.caption}
       content={one.content}
-      checkbox={one.selectable}
       selected={one.selected}
       onSelect={() => setCardsState({
         ...cardsState,

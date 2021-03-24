@@ -2,8 +2,7 @@ import cl from 'classnames';
 import './Card.scss';
 
 function Card({ className, caption, content,
-                checkbox = false, selected = false,
-                onSelect = undefined }) {
+                selected = false, onSelect = undefined }) {
 
   const onHeaderClick = () => {
     if (onSelect !== undefined) {
@@ -16,7 +15,7 @@ function Card({ className, caption, content,
 
       <div className={cl('Card', {'Card__selected': selected})}>
         <div
-          className={cl('Card__header', {'Card__clickable': checkbox})}
+          className={cl('Card__header', 'Card__clickable')}
           onClick={onHeaderClick}
         >
           <div>{caption}</div>
