@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.scss';
 import Header from '../Header';
 import Card from '../Card';
@@ -10,25 +11,38 @@ const beValues = [
   {
     id: '0',
     caption: 'Card one header',
-    content: loremIpsum
+    content: loremIpsum,
+    selected: true
   }, {
     id: '1',
     caption: 'Card two header',
-    content: loremIpsum
+    content: loremIpsum,
+    selected: true
   }, {
     id: '2',
     caption: 'Card three header',
-    content: loremIpsum
+    content: loremIpsum,
+    selected: false
   }
 ];
 
 
 function App() {
-  const cards = beValues.map(one =>
+  const [cardsState, setCardsState] = useState(beValues);
+
+  const cardsRendered = cardsState.map(one =>
     <Card
       key={one.id}
       caption={one.caption}
       content={one.content}
+      selected={one.selected}
+      onSelect={() => setCardsState(
+        cardsState.map(newOne =>
+          newOne.id === one.id
+            ? {...newOne, selected: !newOne.selected}
+            : newOne
+        )
+      )}
     />
   );
 
@@ -37,7 +51,7 @@ function App() {
       <Header containerStyleName={'App__container'}/>
       <div className={cl('App__container', 'App__container-background')}>
         <div className={'App__content'}>
-          {cards}
+          {cardsRendered}
         </div>
       </div>
     </div>
