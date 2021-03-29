@@ -37,7 +37,7 @@ function App() {
       content={one.content}
       selected={one.selected}
       onSelect={() => setCardsState(
-        [...cardsState].map(newOne =>
+        cardsState.map(newOne =>
           newOne.id === one.id
             ? {...newOne, selected: !newOne.selected}
             : newOne

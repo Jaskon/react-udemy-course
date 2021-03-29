@@ -18,6 +18,7 @@ function Card({ className, caption, content, onSelect, selected = false }) {
           onClick={onHeaderClick}
         >
           <div>{caption}</div>
+          <input type={'checkbox'} checked={selected} readOnly />
         </div>
 
         <div className={'Card__divider'} />
