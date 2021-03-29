@@ -1,8 +1,7 @@
 import cl from 'classnames';
 import './Card.scss';
 
-function Card({ className, caption, content,
-                selected = false, onSelect = undefined }) {
+function Card({ className, caption, content, onSelect, selected = false }) {
 
   const onHeaderClick = () => {
     if (onSelect !== undefined) {
