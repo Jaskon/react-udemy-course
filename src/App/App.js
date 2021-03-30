@@ -36,10 +36,25 @@ function App() {
       caption={one.caption}
       content={one.content}
       selected={one.selected}
+      editMode={one.editing}
       onSelect={() => setCardsState(
         cardsState.map(newOne =>
           newOne.id === one.id
             ? {...newOne, selected: !newOne.selected}
+            : newOne
+        )
+      )}
+      onEdit={editing => setCardsState(
+        cardsState.map(newOne =>
+          newOne.id === one.id
+            ? {...newOne, editing, selected: false}
+            : newOne
+        )
+      )}
+      onEditSave={({ caption, content }) => setCardsState(
+        cardsState.map(newOne =>
+          newOne.id === one.id
+            ? {...newOne, caption, content, editing: false}
             : newOne
         )
       )}
