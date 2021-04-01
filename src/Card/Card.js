@@ -3,14 +3,17 @@ import cl from 'classnames';
 import './Card.scss';
 import { BiEditAlt, BiXCircle, BiSave } from 'react-icons/bi';
 
-function Card({ className, caption, content, onSelect, onEdit, onEditSave,
-                editMode = false, selected = false }) {
+function Card({ className, caption, content, onSelect, onEdit,
+                editing = false, selected = false }) {
 
   // New values state
   const [state, setState] = useState({ caption, content });
 
+
+  /* Handlers */
+
   const onHeaderClick = () => {
-    if (onSelect !== undefined && !editMode) {
+    if (onSelect !== undefined && !editing) {
       onSelect();
     }
   };
@@ -18,51 +21,60 @@ function Card({ className, caption, content, onSelect, onEdit, onEditSave,
   const onEditClick = e => {
     // Prevent from clicking on the header
     e.stopPropagation();
-    if (onEdit !== undefined) {
-      // setState({ caption, content });
-      onEdit(true);
-    }
+    onEdit({ editing: true });
   }
 
   const onSaveClick = e => {
     e.stopPropagation();
-    if (onEditSave !== undefined) {
-      // onEditSave(state);
-      onEditSave(state);
-    }
+    onEdit({ ...state, editing: false });
   }
 
   const onCancelClick = e => {
     e.stopPropagation();
-    if (onEdit !== undefined) {
-      setState({ caption, content });
-      onEdit(false);
-    }
+    // Reset state values (to passed with props)
+    setState({ caption, content });
+    onEdit({ editing: false });
   }
 
-  const headerButtonsRendered = editMode
-    ? <>
-      <BiSave className={'Card__icon-save'} onClick={onSaveClick}/>
-      <BiXCircle className={'Card__icon-cancel'} onClick={onCancelClick}/>
-    </>
-    : <>
+
+  /* Renders */
+
+  const renderHeaderButtons = () => {
+    if (editing) {
+      return <>
+        <BiSave className={'Card__icon-save'} onClick={onSaveClick}/>
+        <BiXCircle className={'Card__icon-cancel'} onClick={onCancelClick}/>
+      </>;
+    }
+
+    return <>
       <BiEditAlt className={'Card__icon-edit'} onClick={onEditClick} />
       <input type={'checkbox'} checked={selected} readOnly />
     </>;
+  };
 
-  const captionRendered = editMode
-    ? <input
+  const renderCaption = () => {
+    if (editing) {
+      return <input
         onChange={e => setState({...state, caption: e.target.value})}
-        defaultValue={state.caption} />
-    : <div className={'Card__caption'}>{caption}</div>;
+        defaultValue={state.caption}
+      />;
+    }
 
-  const contentRendered = editMode
-    ? <textarea
+    return <div className={'Card__caption'}>{caption}</div>;
+  };
+
+  const renderContent = () => {
+    if (editing) {
+      return <textarea
         className={'Card__input-content'}
         onChange={e => setState({...state, content: e.target.value})}
         defaultValue={state.content}
-        />
-    : <div className={'Card__content'}>{content}</div>;
+      />;
+    }
+
+    return <div className={'Card__content'}>{content}</div>;
+  };
 
   return (
     <div className={className}>
@@ -72,16 +84,16 @@ function Card({ className, caption, content, onSelect, onEdit, onEditSave,
           className={cl('Card__header', 'Card__clickable')}
           onClick={onHeaderClick}
         >
-          <div className={'Card__caption-wrapper'}>{captionRendered}</div>
+          <div className={'Card__caption-wrapper'}>{renderCaption()}</div>
           <div className={'Card__header-buttons'}>
-            {headerButtonsRendered}
+            {renderHeaderButtons()}
           </div>
         </div>
 
         <div className={'Card__divider'} />
 
         <div className={'Card__content-wrapper'}>
-          {contentRendered}
+          {renderContent()}
         </div>
       </div>
 
