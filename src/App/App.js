@@ -37,17 +37,10 @@ function App() {
       content={card.content}
       selected={card.selected}
       editing={card.editing}
-      onSelect={() => setCardsState(
-        cardsState.map(newOne =>
-          newOne.id === card.id
-            ? {...newOne, selected: !newOne.selected}
-            : newOne
-        )
-      )}
       onEdit={newOne => setCardsState(
         cardsState.map(one =>
           one.id === card.id
-            ? {...one, ...newOne, selected: false}
+            ? { ...one, ...newOne }
             : one
         )
       )}

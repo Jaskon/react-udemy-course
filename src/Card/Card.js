@@ -3,7 +3,7 @@ import cl from 'classnames';
 import './Card.scss';
 import { BiEditAlt, BiXCircle, BiSave } from 'react-icons/bi';
 
-function Card({ className, caption, content, onSelect, onEdit,
+function Card({ className, caption, content, onEdit,
                 editing = false, selected = false }) {
 
   // New values state
@@ -13,15 +13,15 @@ function Card({ className, caption, content, onSelect, onEdit,
   /* Handlers */
 
   const onHeaderClick = () => {
-    if (onSelect !== undefined && !editing) {
-      onSelect();
+    if (!editing) {
+      onEdit({ selected: !selected });
     }
   };
 
   const onEditClick = e => {
     // Prevent from clicking on the header
     e.stopPropagation();
-    onEdit({ editing: true });
+    onEdit({ editing: true, selected: false });
   }
 
   const onSaveClick = e => {
