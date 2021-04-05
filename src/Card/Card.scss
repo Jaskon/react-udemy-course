@@ -1,11 +1,12 @@
-$card-padding-horizontal: 12px;
-$card-padding-vertical: 6px;
+$card-padding: 12px;
 
 .Card {
   border: 2px solid black;
   border-radius: 10px;
-  min-height: 200px;
-  padding: $card-padding-vertical $card-padding-horizontal;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  padding: $card-padding;
   width: 240px;
 }
 
@@ -17,14 +18,44 @@ $card-padding-vertical: 6px;
   user-select: none;
 }
 
+.Card__header-buttons {
+  display: flex;
+  align-items: center;
+}
+
 .Card__divider {
   height: 1px;
   background-color: gray;
-  margin: $card-padding-vertical 0;
+  margin: $card-padding/2 0;
+}
+
+
+.Card__caption-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Card__caption {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Card__content-wrapper {
+  flex-grow: 1;
+  height: 100%;
+  min-height: 0;
 }
 
 .Card__content {
+  max-height: 100%;
+  overflow-y: auto;
+}
 
+.Card__input-content {
+  height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  resize: none;
 }
 
 
@@ -37,4 +68,14 @@ $card-padding-vertical: 6px;
 
 .Card__clickable {
   cursor: pointer;
+}
+
+.Card__icon-edit:hover {
+  color: mediumblue;
+}
+.Card__icon-save:hover {
+  color: green;
+}
+.Card__icon-cancel:hover {
+  color: red;
 }

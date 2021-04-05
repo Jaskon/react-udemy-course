@@ -30,17 +30,18 @@ const beValues = [
 function App() {
   const [cardsState, setCardsState] = useState(beValues);
 
-  const cardsRendered = cardsState.map(one =>
+  const cardsRendered = cardsState.map(card =>
     <Card
-      key={one.id}
-      caption={one.caption}
-      content={one.content}
-      selected={one.selected}
-      onSelect={() => setCardsState(
-        cardsState.map(newOne =>
-          newOne.id === one.id
-            ? {...newOne, selected: !newOne.selected}
-            : newOne
+      key={card.id}
+      caption={card.caption}
+      content={card.content}
+      selected={card.selected}
+      editing={card.editing}
+      onEdit={newOne => setCardsState(
+        cardsState.map(one =>
+          one.id === card.id
+            ? { ...one, ...newOne }
+            : one
         )
       )}
     />
