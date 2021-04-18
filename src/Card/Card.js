@@ -4,7 +4,8 @@ import './Card.scss';
 import { BiEditAlt, BiXCircle, BiSave } from 'react-icons/bi';
 
 function Card({ className, caption, content, onEdit,
-                editing = false, selected = false }) {
+                editing = false, selected = false,
+                readOnly = false }) {
 
   // New values state
   const [state, setState] = useState({ caption, content });
@@ -21,6 +22,7 @@ function Card({ className, caption, content, onEdit,
   const onEditClick = e => {
     // Prevent from clicking on the header
     e.stopPropagation();
+    setState({ caption, content });
     onEdit({ editing: true, selected: false });
   }
 
@@ -32,7 +34,6 @@ function Card({ className, caption, content, onEdit,
   const onCancelClick = e => {
     e.stopPropagation();
     // Reset state values (to passed with props)
-    setState({ caption, content });
     onEdit({ editing: false });
   }
 
@@ -41,14 +42,14 @@ function Card({ className, caption, content, onEdit,
 
   const renderHeaderButtons = () => {
     if (editing) {
-      return <>
+      return !readOnly && <>
         <BiSave className={'Card__icon-save'} onClick={onSaveClick}/>
         <BiXCircle className={'Card__icon-cancel'} onClick={onCancelClick}/>
       </>;
     }
 
     return <>
-      <BiEditAlt className={'Card__icon-edit'} onClick={onEditClick} />
+      {!readOnly && <BiEditAlt className={'Card__icon-edit'} onClick={onEditClick} />}
       <input type={'checkbox'} checked={selected} readOnly />
     </>;
   };
