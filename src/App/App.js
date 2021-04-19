@@ -60,10 +60,7 @@ function App() {
     <Card
       key={card.id}
       className={'App__card'}
-      caption={card.caption}
-      content={card.content}
-      selected={card.selected}
-      editing={card.editing}
+      data={card}
       readOnly={readOnlyState}
       onEdit={newOne => setCardsState(
         cardsState.map(one =>

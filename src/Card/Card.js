@@ -3,8 +3,8 @@ import cl from 'classnames';
 import './Card.scss';
 import { BiEditAlt, BiXCircle, BiSave } from 'react-icons/bi';
 
-function Card({ className, caption, content, onEdit,
-                editing = false, selected = false,
+function Card({ className, onEdit,
+                data: { caption, content, editing = false, selected = false },
                 readOnly = false }) {
 
   // New values state
