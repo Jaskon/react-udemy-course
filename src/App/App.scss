@@ -14,11 +14,23 @@
 }
 
 
-.App__content {
+.App__read_only_checkbox_wrapper {
   display: flex;
-  justify-content: space-between;
+  user-select: none;
+}
+
+.App__read_only_checkbox {
+  margin-right: .25rem;
+  vertical-align: -1px;
+}
+
+
+.App__cards {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .App__card {
-  margin-right: 20px;
+  flex-basis: calc(33.3333% - 1rem);
+  margin: .5rem;
 }
