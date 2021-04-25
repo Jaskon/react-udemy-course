@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
 import Card from '../Card';
-import cl from 'classnames';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum mauris justo, non egestas sapien malesuada sit amet.';
@@ -82,17 +83,11 @@ function App() {
     <div>
       <Header containerStyleName={'App__container'}/>
       <div className={cl('App__container', 'App__container-background')}>
-        <div className={'App__read_only_checkbox_wrapper'}>
-          <label htmlFor={'read_only_checkbox'}>
-            <input
-              id='read_only_checkbox'
-              type={'checkbox'}
-              className={'App__read_only_checkbox'}
-              onChange={e => readOnlyCheckboxHandler(e)}
-            />
-            <span>Read only</span>
-          </label>
-        </div>
+        <CustomCheckbox
+          checked={readOnlyState}
+          onChange={readOnlyCheckboxHandler}
+          label='Read only'
+        />
 
         <div className={'App__cards'}>
           {cardsRendered}

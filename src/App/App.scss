@@ -2,26 +2,15 @@
 
 .App__container {
   margin: 0 auto;
-  padding: 0 24px;
-  width: 800px;
+  padding: 0 1.5rem;
+  width: 50rem;
 }
 
 .App__container-background {
   background-color: rgba(0, 0, 0, .05);
   min-height: calc(100vh - #{$header-height});
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
-
-
-.App__read_only_checkbox_wrapper {
-  display: flex;
-  user-select: none;
-}
-
-.App__read_only_checkbox {
-  margin-right: .25rem;
-  vertical-align: -1px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 
