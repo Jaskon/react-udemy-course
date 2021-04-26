@@ -10,52 +10,10 @@ $card-padding: 12px;
   //width: 240px;
 }
 
-.Card__header {
-  display: flex;
-  font-size: 1.1rem;
-  font-weight: bold;
-  justify-content: space-between;
-  user-select: none;
-}
-
-.Card__header-buttons {
-  display: flex;
-  align-items: center;
-}
-
 .Card__divider {
   height: 1px;
   background-color: gray;
   margin: $card-padding/2 0;
-}
-
-
-.Card__caption-wrapper {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.Card__caption {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.Card__content-wrapper {
-  flex-grow: 1;
-  height: 100%;
-  min-height: 0;
-}
-
-.Card__content {
-  max-height: 100%;
-  overflow-y: auto;
-}
-
-.Card__input-content {
-  height: 100%;
-  max-width: 100%;
-  min-width: 100%;
-  resize: none;
 }
 
 
@@ -64,18 +22,4 @@ $card-padding: 12px;
 }
 .Card.Card__selected .Card__divider {
   background-color: lightgreen;
-}
-
-.Card__clickable {
-  cursor: pointer;
-}
-
-.Card__icon-edit:hover {
-  color: mediumblue;
-}
-.Card__icon-save:hover {
-  color: green;
-}
-.Card__icon-cancel:hover {
-  color: red;
 }

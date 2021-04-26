@@ -4,6 +4,7 @@ import './App.scss';
 import Header from '../Header';
 import Card from '../Card';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import CardList from '../CardList/CardList';
 
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum mauris justo, non egestas sapien malesuada sit amet.';
@@ -55,43 +56,15 @@ const beValues = [
 
 function App() {
   const [cardsState, setCardsState] = useState(beValues);
-  const [readOnlyState, setReadOnlyState] = useState(false);
-
-  const cardsRendered = cardsState.map(card =>
-    <Card
-      key={card.id}
-      className={'App__card'}
-      data={card}
-      readOnly={readOnlyState}
-      onEdit={newOne => setCardsState(
-        cardsState.map(one =>
-          one.id === card.id
-            ? { ...one, ...newOne }
-            : one
-        )
-      )}
-    />
-  );
-
-  const readOnlyCheckboxHandler = (e) => {
-    setReadOnlyState(e.currentTarget.checked);
-    // Clear editing status
-    setCardsState(cardsState.map(card => ({ ...card, editing: false })));
-  };
 
   return (
     <div>
       <Header containerStyleName={'App__container'}/>
       <div className={cl('App__container', 'App__container-background')}>
-        <CustomCheckbox
-          checked={readOnlyState}
-          onChange={readOnlyCheckboxHandler}
-          label='Read only'
+        <CardList
+          cards={cardsState}
+          onListEdit={setCardsState}
         />
-
-        <div className={'App__cards'}>
-          {cardsRendered}
-        </div>
       </div>
     </div>
   );

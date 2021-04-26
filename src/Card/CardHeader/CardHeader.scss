@@ -1,0 +1,38 @@
+.Card__header {
+    display: flex;
+    font-size: 1.1rem;
+    font-weight: bold;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.Card__header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+
+.Card__caption-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.Card__caption {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.Card__clickable {
+    cursor: pointer;
+}
+
+.Card__icon-edit:hover {
+    color: mediumblue;
+}
+.Card__icon-save:hover {
+    color: green;
+}
+.Card__icon-cancel:hover {
+    color: red;
+}
