@@ -1,0 +1,9 @@
+.CardList__cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.CardList__card {
+    flex-basis: calc(33.3333% - 1rem);
+    margin: .5rem;
+}

@@ -1,5 +1,7 @@
+import { v4 as uuid } from 'uuid';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import Card from '../Card';
+import './CardList.scss';
 import { useState } from 'react';
 
 
@@ -11,7 +13,7 @@ function CardList({ cards, onListEdit }) {
   const cardsRendered = cards.map(card =>
     <Card
       key={card.id}
-      className={'App__card'}
+      className={'CardList__card'}
       data={card}
       readOnly={readOnlyState}
       onEdit={newCard =>
@@ -37,6 +39,10 @@ function CardList({ cards, onListEdit }) {
     onListEdit(cards.filter(card => !card.selected));
   };
 
+  const addCardButtonHandler = () => {
+    onListEdit([{ id: uuid(), caption: '', content: '', editing: true }, ...cards]);
+  }
+
 
   return <>
     <CustomCheckbox
@@ -50,8 +56,9 @@ function CardList({ cards, onListEdit }) {
     >
       Delete selected
     </button>
+    <button onClick={addCardButtonHandler}>Add a new card</button>
 
-    <div className={'App__cards'}>
+    <div className={'CardList__cards'}>
       {cardsRendered}
     </div>
   </>;

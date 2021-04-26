@@ -2,8 +2,6 @@ import { useState } from 'react';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
-import Card from '../Card';
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import CardList from '../CardList/CardList';
 
 

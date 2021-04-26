@@ -12,14 +12,3 @@
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-
-
-.App__cards {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.App__card {
-  flex-basis: calc(33.3333% - 1rem);
-  margin: .5rem;
-}
