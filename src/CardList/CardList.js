@@ -1,13 +1,15 @@
-import { v4 as uuid } from 'uuid';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import Card from '../Card';
 import './CardList.scss';
 import { useState } from 'react';
+import AddCard from '../AddCard/AddCard';
+import Modal from '../Modal/Modal';
 
 
 function CardList({ cards, onListEdit }) {
 
   const [readOnlyState, setReadOnlyState] = useState(false);
+  const [cardAddState, setCardAddState] = useState(false);
 
 
   const cardsRendered = cards.map(card =>
@@ -40,7 +42,7 @@ function CardList({ cards, onListEdit }) {
   };
 
   const addCardButtonHandler = () => {
-    onListEdit([{ id: uuid(), caption: '', content: '', editing: true }, ...cards]);
+    setCardAddState(!cardAddState);
   }
 
 
@@ -61,6 +63,15 @@ function CardList({ cards, onListEdit }) {
     <div className={'CardList__cards'}>
       {cardsRendered}
     </div>
+
+    {cardAddState &&
+      <Modal onBackdropClick={addCardButtonHandler}>
+        <AddCard
+          onOk={(card) => onListEdit([card, ...cards])}
+          onCancel={addCardButtonHandler}
+        />
+      </Modal>
+    }
   </>;
 }
 

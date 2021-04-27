@@ -1,0 +1,15 @@
+.AddCard__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    input {
+        width: 100%;
+    }
+}
+
+.AddCard__buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: .5rem;
+}

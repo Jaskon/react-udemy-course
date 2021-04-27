@@ -1,0 +1,17 @@
+.Modal__backdrop {
+    background-color: rgba(0, 0, 0, .4);
+    height: 100vh;
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100vw;
+}
+
+.Modal__window {
+    background-color: white;
+    border-radius: 1rem;
+    margin: auto;
+    position: fixed;
+    top: 50vh;
+    transform: translateY(-50%);
+}
