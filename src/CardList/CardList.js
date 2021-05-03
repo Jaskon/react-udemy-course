@@ -1,17 +1,21 @@
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import Card from '../Card';
+import './CardList.scss';
 import { useState } from 'react';
+import AddCard from '../AddCard/AddCard';
+import Modal from '../Modal/Modal';
 
 
 function CardList({ cards, onListEdit }) {
 
   const [readOnlyState, setReadOnlyState] = useState(false);
+  const [cardAddState, setCardAddState] = useState(false);
 
 
   const cardsRendered = cards.map(card =>
     <Card
       key={card.id}
-      className={'App__card'}
+      className={'CardList__card'}
       data={card}
       readOnly={readOnlyState}
       onEdit={newCard =>
@@ -37,6 +41,10 @@ function CardList({ cards, onListEdit }) {
     onListEdit(cards.filter(card => !card.selected));
   };
 
+  const addCardButtonHandler = () => {
+    setCardAddState(!cardAddState);
+  }
+
 
   return <>
     <CustomCheckbox
@@ -50,10 +58,20 @@ function CardList({ cards, onListEdit }) {
     >
       Delete selected
     </button>
+    <button onClick={addCardButtonHandler}>Add a new card</button>
 
-    <div className={'App__cards'}>
+    <div className={'CardList__cards'}>
       {cardsRendered}
     </div>
+
+    {cardAddState &&
+      <Modal onBackdropClick={addCardButtonHandler}>
+        <AddCard
+          onOk={(card) => onListEdit([card, ...cards])}
+          onCancel={addCardButtonHandler}
+        />
+      </Modal>
+    }
   </>;
 }
 
