@@ -4,10 +4,6 @@ import './CardList.scss';
 import { useState } from 'react';
 import AddCard from '../AddCard/AddCard';
 import Modal from '../Modal/Modal';
-import WithLoadingDelay from '../common/WithLoadingDelay/WithLoadingDelay';
-
-
-const CardWithLoading = WithLoadingDelay(Card, {height: '200px'});
 
 
 function CardList({ cards, onListEdit }) {
@@ -17,7 +13,7 @@ function CardList({ cards, onListEdit }) {
 
 
   const cardsRendered = cards.map(card =>
-    <CardWithLoading
+    <Card
       key={card.id}
       className={'CardList__card'}
       data={card}
