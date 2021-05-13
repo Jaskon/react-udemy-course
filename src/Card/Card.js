@@ -3,6 +3,7 @@ import cl from 'classnames';
 import './Card.scss';
 import CardHeader from './CardHeader/CardHeader';
 import CardBody from './CardBody/CardBody';
+import WithLoadingDelay from "../common/WithLoadingDelay/WithLoadingDelay";
 
 function Card({ className, onEdit,
                 data: { caption, content, editing = false, selected = false },
@@ -63,4 +64,5 @@ function Card({ className, onEdit,
   );
 }
 
-export default Card;
+export default WithLoadingDelay(Card, { height: '200px' });
+export { Card };
