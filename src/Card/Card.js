@@ -4,6 +4,7 @@ import './Card.scss';
 import CardHeader from './CardHeader/CardHeader';
 import CardBody from './CardBody/CardBody';
 import WithLoadingDelay from "../common/WithLoadingDelay/WithLoadingDelay";
+import PropTypes from 'prop-types';
 
 function Card({ className, onEdit,
                 data: { caption, content, editing = false, selected = false },
@@ -63,6 +64,23 @@ function Card({ className, onEdit,
     </div>
   );
 }
+
+
+Card.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.shape({
+    caption: PropTypes.string.isRequired,
+    content: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.element
+    ]).isRequired,
+    editing: PropTypes.bool,
+    selected: PropTypes.bool
+  }),
+  onEdit: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool
+};
+
 
 export default WithLoadingDelay(Card, { height: '200px' });
 export { Card };

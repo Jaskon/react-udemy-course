@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
@@ -52,20 +52,49 @@ const beValues = [
 ];
 
 
+const CardsContext = React.createContext({});
+
+
 function App() {
-  const [cardsState, setCardsState] = useState(beValues);
+  const [cardsContext, setCardsContext] = useState(() => ({
+    cards: beValues,
+    setCards: cards => setCardsContext(state => ({
+      ...state,
+      cards
+    })),
+    addCard: card => setCardsContext(state => ({
+      ...state,
+      cards: [card, ...state.cards]
+    })),
+    removeSelectedCards: () => setCardsContext(state => ({
+      ...state,
+      cards: state.cards.filter(card => !card.selected)
+    })),
+    editCard: newCard => setCardsContext(state => ({
+      ...state,
+      cards: state.cards.map(
+        one => one.id === newCard.id
+          ? {...one, ...newCard}
+          : one
+      )
+    }))
+  }));
 
   return (
     <div>
-      <Header containerStyleName={'App__container'}/>
-      <div className={cl('App__container', 'App__container-background')}>
-        <CardList
-          cards={cardsState}
-          onListEdit={setCardsState}
+      <CardsContext.Provider value={cardsContext}>
+        <Header
+          containerStyleName={'App__container'}
+          badge={cardsContext.cards.length}
         />
-      </div>
+        <div className={cl('App__container', 'App__container-background')}>
+          {/* Should have context with cards */}
+          <CardList />
+        </div>
+      </CardsContext.Provider>
     </div>
   );
 }
 
 export default App;
+export { CardsContext };
