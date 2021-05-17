@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
@@ -54,24 +54,22 @@ const beValues = [
 
 
 function App() {
+
+  const cardsContext = useContext(CardsContext);
+
   return (
     <div>
-      <CardsContextProvider initCardList={beValues}>
-        <CardsContext.Consumer>
-          {value =>
-            <Header
-              containerStyleName={'App__container'}
-              badge={value.cards.length}
-            />
-          }
-        </CardsContext.Consumer>
-        <div className={cl('App__container', 'App__container-background')}>
-          {/* Should have context with cards */}
-          <CardList />
-        </div>
-      </CardsContextProvider>
+      <Header
+        containerStyleName={'App__container'}
+        badge={cardsContext.cards.length}
+      />
+      <div className={cl('App__container', 'App__container-background')}>
+        {/* Should have context with cards */}
+        <CardList />
+      </div>
     </div>
   );
 }
 
-export default App;
+export default CardsContextProvider(App, { initCardList: beValues });
+export { App };
