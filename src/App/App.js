@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
-import CardList from '../CardList/CardList';
+import CardList from '../CardComponents/CardList/CardList';
+import CardsContextProvider, {CardsContext} from "../CardContextComponent/CardsContextProvider";
 
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum mauris justo, non egestas sapien malesuada sit amet.';
@@ -52,49 +53,25 @@ const beValues = [
 ];
 
 
-const CardsContext = React.createContext({});
-
-
 function App() {
-  const [cardsContext, setCardsContext] = useState(() => ({
-    cards: beValues,
-    setCards: cards => setCardsContext(state => ({
-      ...state,
-      cards
-    })),
-    addCard: card => setCardsContext(state => ({
-      ...state,
-      cards: [card, ...state.cards]
-    })),
-    removeSelectedCards: () => setCardsContext(state => ({
-      ...state,
-      cards: state.cards.filter(card => !card.selected)
-    })),
-    editCard: newCard => setCardsContext(state => ({
-      ...state,
-      cards: state.cards.map(
-        one => one.id === newCard.id
-          ? {...one, ...newCard}
-          : one
-      )
-    }))
-  }));
-
   return (
     <div>
-      <CardsContext.Provider value={cardsContext}>
-        <Header
-          containerStyleName={'App__container'}
-          badge={cardsContext.cards.length}
-        />
+      <CardsContextProvider initCardList={beValues}>
+        <CardsContext.Consumer>
+          {value =>
+            <Header
+              containerStyleName={'App__container'}
+              badge={value.cards.length}
+            />
+          }
+        </CardsContext.Consumer>
         <div className={cl('App__container', 'App__container-background')}>
           {/* Should have context with cards */}
           <CardList />
         </div>
-      </CardsContext.Provider>
+      </CardsContextProvider>
     </div>
   );
 }
 
 export default App;
-export { CardsContext };

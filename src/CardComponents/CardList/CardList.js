@@ -1,10 +1,10 @@
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
 import Card from '../Card';
 import './CardList.scss';
 import {useContext, useState} from 'react';
 import AddCard from '../AddCard/AddCard';
-import Modal from '../Modal/Modal';
-import {CardsContext} from "../App/App";
+import Modal from '../../common/Modal/Modal';
+import {CardsContext} from "../../CardContextComponent/CardsContextProvider";
 
 
 function CardList() {
