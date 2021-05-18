@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './WithLoadingDelay.scss';
-import cl from 'classnames';
 import Spinner from "../Spinner/Spinner";
 
 
 function WithLoadingDelay(Children, { width, height }) {
-  return function Child(props) {
+  const Child = (props) => {
     // Called once the component created
     const [loading, setLoading] = useState(() => {
-      console.log('Starting timer...');
+      console.debug('Starting timer...');
       setTimeout(() => {
-        console.log('Timer expired!');
+        console.debug('Timer expired!');
         setLoading(false);
       }, 2000);
       return true;
@@ -23,6 +22,10 @@ function WithLoadingDelay(Children, { width, height }) {
       }
     </>;
   }
+
+  Child.propTypes = Children.propTypes;
+
+  return Child;
 }
 
 

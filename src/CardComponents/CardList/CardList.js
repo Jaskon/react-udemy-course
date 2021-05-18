@@ -1,15 +1,17 @@
-import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
 import Card from '../Card';
 import './CardList.scss';
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import AddCard from '../AddCard/AddCard';
-import Modal from '../Modal/Modal';
+import Modal from '../../common/Modal/Modal';
+import {CardsContext} from "../../CardContextComponent/CardsContextProvider";
 
 
-function CardList({ cards, onListEdit }) {
+function CardList() {
 
   const [readOnlyState, setReadOnlyState] = useState(false);
   const [cardAddState, setCardAddState] = useState(false);
+  const {cards, setCards, addCard, removeSelectedCards, editCard} = useContext(CardsContext);
 
 
   const cardsRendered = cards.map(card =>
@@ -18,15 +20,7 @@ function CardList({ cards, onListEdit }) {
       className={'CardList__card'}
       data={card}
       readOnly={readOnlyState}
-      onEdit={newCard =>
-        onListEdit(
-          cards.map(one =>
-            one.id === card.id
-              ? { ...one, ...newCard }
-              : one
-          )
-        )
-      }
+      onEdit={newCard => editCard({...card, ...newCard})}
     />
   );
 
@@ -34,11 +28,15 @@ function CardList({ cards, onListEdit }) {
   const readOnlyCheckboxHandler = (e) => {
     setReadOnlyState(e.currentTarget.checked);
     // Clear editing status
-    onListEdit(cards.map(card => ({ ...card, editing: false })));
+    setCards(cards.map(card => ({...card, editing: false})));
   };
 
   const deleteSelectedButtonHandler = () => {
-    onListEdit(cards.filter(card => !card.selected));
+    removeSelectedCards();
+  };
+
+  const addCardHandler = card => {
+    addCard(card);
   };
 
   const addCardButtonHandler = () => {
@@ -65,12 +63,12 @@ function CardList({ cards, onListEdit }) {
     </div>
 
     {cardAddState &&
-      <Modal onBackdropClick={addCardButtonHandler}>
-        <AddCard
-          onOk={(card) => onListEdit([card, ...cards])}
-          onCancel={addCardButtonHandler}
-        />
-      </Modal>
+    <Modal onBackdropClick={addCardButtonHandler}>
+      <AddCard
+        onOk={addCardHandler}
+        onCancel={addCardButtonHandler}
+      />
+    </Modal>
     }
   </>;
 }

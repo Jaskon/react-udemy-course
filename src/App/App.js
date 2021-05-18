@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, {useContext} from 'react';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
-import CardList from '../CardList/CardList';
+import CardList from '../CardComponents/CardList/CardList';
+import CardsContextProvider, {CardsContext} from "../CardContextComponent/CardsContextProvider";
 
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vestibulum mauris justo, non egestas sapien malesuada sit amet.';
@@ -53,19 +54,22 @@ const beValues = [
 
 
 function App() {
-  const [cardsState, setCardsState] = useState(beValues);
+
+  const cardsContext = useContext(CardsContext);
 
   return (
     <div>
-      <Header containerStyleName={'App__container'}/>
+      <Header
+        containerStyleName={'App__container'}
+        badge={cardsContext.cards.length}
+      />
       <div className={cl('App__container', 'App__container-background')}>
-        <CardList
-          cards={cardsState}
-          onListEdit={setCardsState}
-        />
+        {/* Should have context with cards */}
+        <CardList />
       </div>
     </div>
   );
 }
 
-export default App;
+export default CardsContextProvider(App, { initCardList: beValues });
+export { App };
