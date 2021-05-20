@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {getCardList} from '../api/cards.api';
 
 
 const CardsContext = React.createContext({});
 
 
-function CardsContextProvider(Children, { initCardList }) {
+function CardsContextProvider(Children) {
 
   return function Child(props) {
 
+    useEffect(() => {
+      getCardList().then(cards => cardsContext.setCards(cards));
+    }, []);
+
     const [cardsContext, setCardsContext] = useState(() => ({
-      cards: initCardList,
+      cards: [],
       setCards: cards => setCardsContext(state => ({
         ...state,
         cards
