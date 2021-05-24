@@ -13,6 +13,10 @@ $header-background-color: #563d7c;
   height: 100%;
 }
 
+.Header__links a {
+  margin-right: 1rem;
+}
+
 .Header__content {
   align-items: center;
   display: flex;
