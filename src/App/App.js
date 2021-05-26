@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
@@ -19,28 +19,31 @@ function App() {
         badge={cardsContext.cards?.length || 0}
       />
 
-      <Switch>
+      {/* App container */}
+      <div className={cl('App__container', 'App__container-background')}>
 
-        <Route exact path="/">
-          <div className={cl('App__container', 'App__container-background')}>
+        <Switch>
+
+          <Route exact path="/">
             {/* Should have context with cards */}
             <CardList />
-          </div>
-        </Route>
+          </Route>
 
-        <Route path="/auth">
-          <div className={cl('App__container', 'App__container-background')}>
+          <Route path="/auth">
             <Auth/>
-          </div>
-        </Route>
+          </Route>
 
-        <Route path="/">
-          <div className={cl('App__container', 'App__container-background')}>
+          <Route path="/404">
             Page not found
-          </div>
-        </Route>
+          </Route>
 
-      </Switch>
+          <Route path="/">
+            <Redirect to="/404"/>
+          </Route>
+
+        </Switch>
+
+      </div>
     </div>
   );
 }
