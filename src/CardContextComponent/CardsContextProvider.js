@@ -11,6 +11,7 @@ function CardsContextProvider(Children) {
 
     useEffect(() => {
       getCardList().then(cards => cardsContext.setCards(cards));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const [cardsContext, setCardsContext] = useState(() => ({
