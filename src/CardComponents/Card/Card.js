@@ -6,9 +6,8 @@ import CardBody from './CardBody/CardBody';
 import WithLoadingDelay from "../../common/WithLoadingDelay/WithLoadingDelay";
 import PropTypes from 'prop-types';
 
-function Card({ className, onEdit,
-                data: { caption, content, editing = false, selected = false },
-                readOnly = false }) {
+function Card({ onEdit, data: { caption, content, editing = false, selected = false },
+                readOnly = false, ...props }) {
 
   // New values state
   const [state, setState] = useState({ caption, content });
@@ -37,7 +36,7 @@ function Card({ className, onEdit,
 
 
   return (
-    <div className={className}>
+    <div {...props}>
 
       <div className={cl('Card', {'Card__selected': selected})}>
         <CardHeader
