@@ -1,17 +1,22 @@
 import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Card from '../Card';
 import './CardList.scss';
-import {useContext, useState} from 'react';
 import AddCard from '../AddCard/AddCard';
 import Modal from '../../common/Modal/Modal';
-import {CardsContext} from "../../CardContextComponent/CardsContextProvider";
+import { setCards, addCard, removeSelectedCards, editCard } from '../../store/actions';
 
 
 function CardList() {
 
+  const history = useHistory();
+  const cards = useSelector(state => state.cards);
+  const dispatch = useDispatch();
+
   const [readOnlyState, setReadOnlyState] = useState(false);
   const [cardAddState, setCardAddState] = useState(false);
-  const {cards, setCards, addCard, removeSelectedCards, editCard} = useContext(CardsContext);
 
 
   const cardsRendered = cards.map(card =>
@@ -20,7 +25,8 @@ function CardList() {
       className={'CardList__card'}
       data={card}
       readOnly={readOnlyState}
-      onEdit={newCard => editCard({...card, ...newCard})}
+      onEdit={newCard => dispatch(editCard({ ...card, ...newCard }))}
+      onDoubleClick={() => readOnlyState && history.push(`/card/${card.id}`)}
     />
   );
 
@@ -28,15 +34,15 @@ function CardList() {
   const readOnlyCheckboxHandler = (e) => {
     setReadOnlyState(e.currentTarget.checked);
     // Clear editing status
-    setCards(cards.map(card => ({...card, editing: false})));
+    dispatch(setCards(cards.map(card => ({ ...card, editing: false }))));
   };
 
   const deleteSelectedButtonHandler = () => {
-    removeSelectedCards();
+    dispatch(removeSelectedCards());
   };
 
   const addCardHandler = card => {
-    addCard(card);
+    dispatch(addCard(card));
   };
 
   const addCardButtonHandler = () => {

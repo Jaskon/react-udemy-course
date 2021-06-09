@@ -1,22 +1,30 @@
-import React, {useContext} from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
 import CardList from '../CardComponents/CardList/CardList';
-import CardsContextProvider, {CardsContext} from "../CardContextComponent/CardsContextProvider";
 import Auth from '../Auth/Auth';
+import { getCardList } from '../api/cards.api';
+import { setCards } from '../store/actions';
+import CardPage from '../CardComponents/CardPage/CardPage';
 
 
 function App() {
+  const dispatch = useDispatch();
+  const cardsCount = useSelector(state => state.cards.length);
 
-  const cardsContext = useContext(CardsContext);
+  useEffect(() => {
+    getCardList().then(cards => dispatch(setCards(cards)));
+  // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
       <Header
         containerStyleName={'App__container'}
-        badge={cardsContext.cards?.length || 0}
+        badge={cardsCount}
       />
 
       {/* App container */}
@@ -28,6 +36,8 @@ function App() {
             {/* Should have context with cards */}
             <CardList />
           </Route>
+
+          <Route path="/card/:id" children={<CardPage />}/>
 
           <Route path="/auth">
             <Auth/>
@@ -48,5 +58,4 @@ function App() {
   );
 }
 
-export default CardsContextProvider(App);
-export { App };
+export default App;
