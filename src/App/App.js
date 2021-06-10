@@ -7,7 +7,7 @@ import Header from '../Header';
 import CardList from '../CardComponents/CardList/CardList';
 import Auth from '../Auth/Auth';
 import { getCardList } from '../api/cards.api';
-import { setCards } from '../store/actions';
+import { fetchCards, setCards } from '../store/actions';
 import CardPage from '../CardComponents/CardPage/CardPage';
 
 
@@ -16,7 +16,7 @@ function App() {
   const cardsCount = useSelector(state => state.cards.length);
 
   useEffect(() => {
-    getCardList().then(cards => dispatch(setCards(cards)));
+    dispatch(fetchCards());
   // eslint-disable-next-line
   }, []);
 
