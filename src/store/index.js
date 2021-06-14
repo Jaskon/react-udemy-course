@@ -1,4 +1,5 @@
 import * as redux from 'redux';
+import thunk from 'redux-thunk';
 
 
 const initState = { cards: [] };
@@ -23,7 +24,16 @@ const reducer = (state = initState, { type, payload }) => {
   return state;
 };
 
-const store = redux.createStore(reducer);
+const store = redux.createStore(
+  reducer,
+  redux.applyMiddleware(
+    () => (next) => (action) => {
+      console.log(`Action of type ${action.type} triggered. Payload:`, action.payload);
+      next(action);
+    },
+    thunk
+  ),
+);
 
 
 export default store;

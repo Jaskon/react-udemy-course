@@ -1,3 +1,9 @@
+import { getCardList } from '../api/cards.api';
+
+const fetchCards = () => dispatch => {
+  getCardList().then(cards => dispatch(setCards(cards)));
+};
+
 const setCards = cards => ({
   type: 'setCards',
   payload: { cards }
@@ -17,4 +23,4 @@ const editCard = card => ({
 });
 
 
-export { setCards, addCard, removeSelectedCards, editCard };
+export { fetchCards, setCards, addCard, removeSelectedCards, editCard };
