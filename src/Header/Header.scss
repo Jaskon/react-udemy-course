@@ -13,7 +13,8 @@ $header-background-color: #563d7c;
   height: 100%;
 }
 
-.Header__links a {
+.Header__links a,
+.Header__links span{
   margin-right: 1rem;
 }
 

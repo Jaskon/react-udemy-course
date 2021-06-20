@@ -6,16 +6,17 @@ import './App.scss';
 import Header from '../Header';
 import CardList from '../CardComponents/CardList/CardList';
 import Auth from '../Auth/Auth';
-import { getCardList } from '../api/cards.api';
-import { fetchCards, setCards } from '../store/actions';
+import { fetchCards } from '../store/cardsSlice';
 import CardPage from '../CardComponents/CardPage/CardPage';
+import Settings from '../Settings/Settings';
 
 
 function App() {
   const dispatch = useDispatch();
-  const cardsCount = useSelector(state => state.cards.length);
+  const cardsCount = useSelector(state => state.cards.cards.length);
 
   useEffect(() => {
+    // TODO: fetchUser
     dispatch(fetchCards());
   // eslint-disable-next-line
   }, []);
@@ -41,6 +42,11 @@ function App() {
 
           <Route path="/auth">
             <Auth/>
+          </Route>
+
+          <Route path="/settings">
+            {/* TODO: admin only */}
+            <Settings/>
           </Route>
 
           <Route path="/404">

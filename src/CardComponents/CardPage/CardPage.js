@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Card } from '../Card/Card';
-import { editCard } from '../../store/actions';
+import { editCard } from '../../store/cardsSlice';
 import { useParams } from 'react-router-dom';
 
 
 function CardPage() {
   const { id } = useParams();
 
-  const card = useSelector(state => state.cards.find(one => one.id === id));
+  const card = useSelector(state => state.cards.cards.find(one => one.id === id));
   const dispatch = useDispatch();
 
   return <>
