@@ -14,9 +14,9 @@ import Settings from '../Settings/Settings';
 function App() {
   const dispatch = useDispatch();
   const cardsCount = useSelector(state => state.cards.cards.length);
+  const user = useSelector(state => state.user.user);
 
   useEffect(() => {
-    // TODO: fetchUser
     dispatch(fetchCards());
   // eslint-disable-next-line
   }, []);
@@ -44,10 +44,11 @@ function App() {
             <Auth/>
           </Route>
 
-          <Route path="/settings">
-            {/* TODO: admin only */}
-            <Settings/>
-          </Route>
+          {user &&
+            <Route path="/settings">
+              <Settings/>
+            </Route>
+          }
 
           <Route path="/404">
             Page not found

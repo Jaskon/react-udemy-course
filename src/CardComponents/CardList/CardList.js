@@ -42,27 +42,34 @@ function CardList() {
   }
 
 
+  const renderControls = () => {
+    return <>
+      <button
+        disabled={!cards.find(card => card.selected)}
+        onClick={deleteSelectedButtonHandler}
+      >
+        Delete selected
+      </button>
+      <button onClick={addCardButtonHandler}>Add a new card</button>
+
+      {cardAddState &&
+        <Modal onBackdropClick={addCardButtonHandler}>
+          <AddCard
+            onOk={addCardHandler}
+            onCancel={addCardButtonHandler}
+          />
+        </Modal>
+      }
+    </>;
+  }
+
+
   return <>
-    <button
-      disabled={!cards.find(card => card.selected)}
-      onClick={deleteSelectedButtonHandler}
-    >
-      Delete selected
-    </button>
-    <button onClick={addCardButtonHandler}>Add a new card</button>
+    {!readOnly && renderControls()}
 
     <div className={'CardList__cards'}>
       {cardsRendered}
     </div>
-
-    {cardAddState &&
-    <Modal onBackdropClick={addCardButtonHandler}>
-      <AddCard
-        onOk={addCardHandler}
-        onCancel={addCardButtonHandler}
-      />
-    </Modal>
-    }
   </>;
 }
 

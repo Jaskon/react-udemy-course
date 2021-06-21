@@ -11,7 +11,7 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState: {
     cards: [],
-    readOnly: false
+    readOnly: true
   },
   reducers: {
 

@@ -8,13 +8,14 @@ function CardPage() {
   const { id } = useParams();
 
   const card = useSelector(state => state.cards.cards.find(one => one.id === id));
+  const readOnly = useSelector(state => state.cards.readOnly);
   const dispatch = useDispatch();
 
   return <>
     {card &&
       <Card
         data={card}
-        readOnly={false}
+        readOnly={readOnly}
         onEdit={newCard => dispatch(editCard({ ...card, ...newCard }))}
       />
     }

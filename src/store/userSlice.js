@@ -6,38 +6,55 @@ const usersDB = [
 ];
 
 
-// TODO: Get from localstorage
-const fetchUser = undefined;
+// Try to get from localstorage
+let persistedUser;
+try {
+  persistedUser = JSON.parse(localStorage.getItem('user'));
+} catch(e) {
+  console.error('Error parsing user JSON', e);
+}
 
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: undefined
+    user: persistedUser  // Ether user object or undefined
   },
   reducers: {
 
-    login: (state, { payload: { username, password } }) => {
-      username = username.toLowerCase();
-
-      // TODO: Get rid of side effect from reducer?
-      const userFound = usersDB.find(one => one.username === username && one.password === password);
-
-      if (userFound) {
-        state.user = userFound;
-      } else {
-        state.user = { username, password };
-      }
-    },
-
-    logout: state => {
-      state.user = undefined;
-    },
+    setUser: (state, { payload }) => {
+      state.user = payload;
+    }
 
   }
 });
 
 
-export { fetchUser };
-export const { login, logout } = userSlice.actions;
+/* Thunks */
+
+const login = ({ username, password }) => (dispatch) => {
+  username = username.toLowerCase();
+
+  const userFound = usersDB.find(one => one.username === username && one.password === password);
+  let user;
+
+  if (userFound) {
+    user = userFound;
+  } else {
+    user = { username, password };
+  }
+
+  localStorage.setItem('user', JSON.stringify(user));
+
+  dispatch(setUser(user));
+};
+
+const logout = () => (dispatch) => {
+  localStorage.removeItem('user');
+  dispatch(setUser(undefined));
+};
+
+
+export const { setUser } = userSlice.actions;
+export { login, logout };
 export default userSlice.reducer;
