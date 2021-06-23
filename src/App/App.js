@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import cl from 'classnames';
 import './App.scss';
 import Header from '../Header';
-import CardList from '../CardComponents/CardList/CardList';
-import Auth from '../Auth/Auth';
-import { getCardList } from '../api/cards.api';
-import { fetchCards, setCards } from '../store/actions';
-import CardPage from '../CardComponents/CardPage/CardPage';
+import { fetchCards } from '../store/cardsSlice';
+import {Redirect, Route, Switch} from "react-router-dom";
+import CardList from "../CardComponents/CardList/CardList";
+import CardPage from "../CardComponents/CardPage/CardPage";
+import Auth from "../Auth/Auth";
+import PrivateRoute from "./Router/PrivateRoute";
+import Settings from "../Settings/Settings";
 
 
 function App() {
   const dispatch = useDispatch();
-  const cardsCount = useSelector(state => state.cards.length);
+  const cardsCount = useSelector(state => state.cards.cards.length);
+  const userRole = useSelector(state => state.user.user?.role);
 
   useEffect(() => {
     dispatch(fetchCards());
@@ -33,7 +35,6 @@ function App() {
         <Switch>
 
           <Route exact path="/">
-            {/* Should have context with cards */}
             <CardList />
           </Route>
 
@@ -42,6 +43,10 @@ function App() {
           <Route path="/auth">
             <Auth/>
           </Route>
+
+          <PrivateRoute path="/settings" condition={userRole === 'admin'}>
+            <Settings/>
+          </PrivateRoute>
 
           <Route path="/404">
             Page not found

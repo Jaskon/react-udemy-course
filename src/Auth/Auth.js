@@ -1,8 +1,14 @@
 import './Auth.scss';
 import InputValidation from "../common/InputValidation/InputValidation";
 import {useState} from "react";
+import { login } from '../store/userSlice';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Auth() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [username, setUsername] = useState({ value: '', valid: false });
   const [password, setPassword] = useState({ value: '', valid: false });
 
@@ -23,7 +29,10 @@ function Auth() {
     />
 
     <button
-      onClick={() => console.log(username, password)}
+      onClick={() => {
+        dispatch(login({ username: username.value, password: password.value }));
+        history.push('/');
+      }}
       disabled={!username.valid || !password.valid}
     >Sign in</button>
   </div>;
