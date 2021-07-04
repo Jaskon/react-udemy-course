@@ -91,7 +91,3 @@ test('should call onEdit in a proper way', () => {
   expect(changeStateMock).toHaveBeenCalledTimes(1);
   expect(changeStateMock.mock.calls[0][0]).toMatchObject({ content: newContent });
 });
-
-// TODO: Test onEdit is called on appropriate functions called
-//  Test CardHeader and CardBody props are correct (including functions)
-//  Call state changing functions, then test that onSave calls onEdit callback with right parameters
