@@ -46,6 +46,7 @@ function CardHeader({ editing, readOnly, caption, selected, onCaptionChange,
   const renderCaption = () => {
     if (editing) {
       return <input
+        type="text"
         onChange={e => onCaptionChange(e.currentTarget.value)}
         defaultValue={caption}
       />;
