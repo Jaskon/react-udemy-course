@@ -38,56 +38,79 @@ test('should have CardHeader and CardBody components inside', () => {
   expect(wrapper.find(CardBody).prop('content')).toEqual(defaultProps.data.content);
 });
 
-test('should call onEdit in a proper way', () => {
+
+describe('should call onEdit when appropriate callback called', () => {
   const editMock = jest.fn();
-  const changeStateMock = jest.fn();
-  const useStateMock = jest.spyOn(React, 'useState');
-  useStateMock.mockImplementation(initState => [initState, changeStateMock]);
   const wrapper = createComp({ onEdit: editMock });
 
-  // onSelect
-  wrapper.find('CardHeader').prop('onSelect')();
-  expect(editMock).toHaveBeenCalledTimes(1);
-  expect(editMock).toHaveBeenCalledWith({ selected: !defaultProps.selected });
-
-  editMock.mockClear();
-
-  // onEditStart
-  wrapper.find('CardHeader').prop('onEditStart')();
-  expect(editMock).toHaveBeenCalledTimes(1);
-  expect(editMock).toHaveBeenCalledWith({ editing: true, selected: false });
-
-  editMock.mockClear();
-
-  // onSave
-  wrapper.find('CardHeader').prop('onSave')();
-  expect(editMock).toHaveBeenCalledTimes(1);
-  expect(editMock).toHaveBeenCalledWith({
-    caption: defaultProps.data.caption,
-    content: defaultProps.data.content,
-    editing: false
+  beforeEach(() => {
+    editMock.mockClear();
   });
 
-  editMock.mockClear();
+  test('onSelect', () => {
+    wrapper.find('CardHeader').prop('onSelect')();
+    expect(editMock).toHaveBeenCalledTimes(1);
+    expect(editMock).toHaveBeenCalledWith({ selected: !defaultProps.selected });
+  });
 
-  // onEditCancel
-  wrapper.find('CardHeader').prop('onEditCancel')();
-  expect(editMock).toHaveBeenCalledTimes(1);
-  expect(editMock).toHaveBeenCalledWith({ editing: false });
+  test('onEditStart', () => {
+    wrapper.find('CardHeader').prop('onEditStart')();
+    expect(editMock).toHaveBeenCalledTimes(1);
+    expect(editMock).toHaveBeenCalledWith({editing: true, selected: false});
+  });
 
-  changeStateMock.mockClear();
+  test('onSave', () => {
+    wrapper.find('CardHeader').prop('onSave')();
+    expect(editMock).toHaveBeenCalledTimes(1);
+    expect(editMock).toHaveBeenCalledWith({
+      caption: defaultProps.data.caption,
+      content: defaultProps.data.content,
+      editing: false
+    });
+  });
 
-  // onCaptionChange
-  const newCaption = 'New caption';
-  wrapper.find('CardHeader').prop('onCaptionChange')(newCaption);
-  expect(changeStateMock).toHaveBeenCalledTimes(1);
-  expect(changeStateMock.mock.calls[0][0]).toMatchObject({ caption: newCaption });
+  test('onEditCancel', () => {
+    wrapper.find('CardHeader').prop('onEditCancel')();
+    expect(editMock).toHaveBeenCalledTimes(1);
+    expect(editMock).toHaveBeenCalledWith({editing: false});
+  });
+});
 
-  changeStateMock.mockClear();
 
-  // onContentChange
-  const newContent = 'New content';
-  wrapper.find('CardBody').prop('onContentChange')(newContent);
-  expect(changeStateMock).toHaveBeenCalledTimes(1);
-  expect(changeStateMock.mock.calls[0][0]).toMatchObject({ content: newContent });
+describe('should set right state on appropriate callback called', () => {
+  let wrapper;
+  let changeStateMock;
+  let useStateMock;
+
+  beforeAll(() => {
+    // Mock React setState fn (via mocking useState hook)
+    changeStateMock = jest.fn();
+    useStateMock = jest.spyOn(React, 'useState');
+    useStateMock.mockImplementation(initState => [initState, changeStateMock]);
+
+    wrapper = createComp();
+  });
+
+  afterAll(() => {
+    // Restore React useState hook
+    useStateMock.mockRestore();
+  });
+
+  beforeEach(() => {
+    changeStateMock.mockClear();
+  });
+
+  test('onCaptionChange', () => {
+    const newCaption = 'New caption';
+    wrapper.find('CardHeader').prop('onCaptionChange')(newCaption);
+    expect(changeStateMock).toHaveBeenCalledTimes(1);
+    expect(changeStateMock.mock.calls[0][0]).toMatchObject({caption: newCaption});
+  });
+
+  test('onContentChange', () => {
+    const newContent = 'New content';
+    wrapper.find('CardBody').prop('onContentChange')(newContent);
+    expect(changeStateMock).toHaveBeenCalledTimes(1);
+    expect(changeStateMock.mock.calls[0][0]).toMatchObject({content: newContent});
+  });
 });
